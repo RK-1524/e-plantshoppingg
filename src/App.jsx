@@ -1,40 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import ProductList from "./ProductList";
+import CartItem from "./CartItem";
+import AboutUs from "./AboutUs";
 
-function AboutUs() {
+function App() {
+  const [page, setPage] = useState("home");
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>About Paradise Nursery 🌿</h2>
-      
-      <p>
-        Welcome to <strong>Paradise Nursery</strong>, your one-stop destination for
-        beautiful and healthy plants. We are an e-commerce platform dedicated to
-        bringing nature closer to your home.
-      </p>
+    <div>
+      <nav>
+        <button onClick={() => setPage("home")}>Home</button>
+        <button onClick={() => setPage("products")}>Products</button>
+        <button onClick={() => setPage("cart")}>Cart</button>
+      </nav>
 
-      <p>
-        Our mission is to promote a greener lifestyle by making plants accessible
-        to everyone. Whether you are a beginner or a plant enthusiast, we offer a
-        wide variety of indoor and outdoor plants to suit your needs.
-      </p>
+      {page === "home" && (
+        <>
+          <h1>🌿 Paradise Nursery</h1>
+          <button onClick={() => setPage("products")}>
+            Get Started
+          </button>
+          <AboutUs />
+        </>
+      )}
 
-      <p>
-        At Paradise Nursery, we ensure:
-      </p>
+      {page === "products" && <ProductList />}
 
-      <ul>
-        <li>🌱 High-quality, hand-picked plants</li>
-        <li>🚚 Safe and fast delivery</li>
-        <li>💡 Easy plant care guidance</li>
-        <li>💰 Affordable pricing</li>
-      </ul>
-
-      <p>
-        We believe plants not only enhance the beauty of your space but also
-        improve your well-being. Join us in creating a greener and healthier
-        environment!
-      </p>
+      {page === "cart" && (
+        <CartItem onContinueShopping={() => setPage("products")} />
+      )}
     </div>
   );
 }
 
-export default AboutUs;
+export default App;
